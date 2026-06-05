@@ -41,3 +41,6 @@
 test/x64*
 test/Test.vcx*
 test/*.sln
+
+# Claude Code
+CLAUDE.md
