@@ -1,3 +1,5 @@
+[![CI](https://github.com/J-D-3/Stopwatch/actions/workflows/ci.yml/badge.svg)](https://github.com/J-D-3/Stopwatch/actions/workflows/ci.yml)
+
 # Stopwatch
 C++ implementation of a `Stopwatch` class
 
