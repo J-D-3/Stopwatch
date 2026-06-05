@@ -44,3 +44,8 @@ test/*.sln
 
 # Claude Code
 CLAUDE.md
+
+# CMake
+build/
+CMakeCache.txt
+CMakeFiles/
