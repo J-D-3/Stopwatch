@@ -16,7 +16,7 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
    add_executable(stopwatch_demo test/main.cpp)
    target_link_libraries(stopwatch_demo PRIVATE stopwatch)
 
-   add_executable(stopwatch_tests test/test_stopwatch.cpp)
+   add_executable(stopwatch_tests test/test_stopwatch.cpp test/test_link_tu.cpp)
    target_link_libraries(stopwatch_tests PRIVATE stopwatch)
    add_test(NAME stopwatch_tests COMMAND stopwatch_tests)
 endif()

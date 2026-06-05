@@ -21,9 +21,18 @@ static int failures = 0;
       }                                                                    \
    } while(0)
 
+// Defined in test_link_tu.cpp. Calling it forces that second translation
+// unit to be linked, so the build fails if a header-scope symbol is not
+// inline (duplicate-definition guard for the header-only contract).
+std::string link_probe();
+
 int main()
 {
    namespace sw = stopwatch;
+
+   // The header is included in two translation units (here and in
+   // test_link_tu.cpp); this must link cleanly.
+   CHECK( link_probe() == "{1,2,3}" );
 
    // show_times() formatting, including the empty edge case.
    CHECK( sw::show_times({}) == "{}" );
