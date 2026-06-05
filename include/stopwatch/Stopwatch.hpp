@@ -39,13 +39,13 @@ public:
    }
 
    template<TimeFormat fmt = TimeFormat::MILLISECONDS>
-   std::uint64_t elapsed(){
+   std::uint64_t elapsed() const{
       const auto end_time = std::chrono::steady_clock::now();
       return ticks<fmt>(start_time, end_time);
    }
 
    template<TimeFormat fmt_total = TimeFormat::MILLISECONDS, TimeFormat fmt_lap = fmt_total>
-   std::pair<std::uint64_t, std::vector<std::uint64_t>> elapsed_laps(){
+   std::pair<std::uint64_t, std::vector<std::uint64_t>> elapsed_laps() const{
       std::vector<std::uint64_t> lap_times;
       lap_times.reserve(laps.size()-1);
 
