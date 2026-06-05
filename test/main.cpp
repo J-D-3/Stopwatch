@@ -16,13 +16,15 @@ int main()
    sw::Stopwatch my_watch;
    my_watch.start();
 
-   //Do something time-consuming
-   for(std::size_t i = 1; i <= 500000; i++){
-      if( i%10 == 0){
-         std::cout << i << std::endl;
-      }
-      if( i % 100000 == 0){
+   //Do something time-consuming, but keep the console quiet: accumulate
+   //into a volatile sink so the work isn't optimised away, and only print
+   //when we take a lap (5 lines instead of tens of thousands).
+   volatile std::uint64_t sink = 0;
+   for(std::size_t i = 1; i <= 50000000; i++){
+      sink += static_cast<std::uint64_t>(i) * i;
+      if( i % 10000000 == 0){
           my_watch.lap();
+          std::cout << "Reached iteration " << i << std::endl;
       }
    }
 
