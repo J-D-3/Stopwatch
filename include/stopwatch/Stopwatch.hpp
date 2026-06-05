@@ -24,13 +24,13 @@ public:
    }
 
    void start(){
-      start_time = std::chrono::high_resolution_clock::now();
+      start_time = std::chrono::steady_clock::now();
       laps = {start_time};
    }
 
    template<TimeFormat fmt = TimeFormat::MILLISECONDS>
    std::uint64_t lap(){
-      const auto t = std::chrono::high_resolution_clock::now();
+      const auto t = std::chrono::steady_clock::now();
       const auto last_r = laps.back();
       laps.push_back( t );
       return ticks<fmt>(last_r, t);
@@ -38,7 +38,7 @@ public:
 
    template<TimeFormat fmt = TimeFormat::MILLISECONDS>
    std::uint64_t elapsed(){
-      const auto end_time = std::chrono::high_resolution_clock::now();
+      const auto end_time = std::chrono::steady_clock::now();
       return ticks<fmt>(start_time, end_time);
    }
 
@@ -58,7 +58,7 @@ public:
 
 
 private:
-   typedef std::chrono::time_point<std::chrono::high_resolution_clock> time_pt;
+   typedef std::chrono::time_point<std::chrono::steady_clock> time_pt;
    time_pt start_time;
    std::vector<time_pt> laps;
 
