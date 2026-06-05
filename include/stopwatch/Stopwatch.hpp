@@ -47,7 +47,7 @@ public:
       std::vector<std::uint64_t> lap_times;
       lap_times.reserve(laps.size()-1);
 
-      for( std::size_t idx = 0; idx <= laps.size()-2; idx++){
+      for( std::size_t idx = 0; idx + 1 < laps.size(); idx++){
          const auto lap_end = laps[idx+1];
          const auto lap_start = laps[idx];
          lap_times.push_back( ticks<fmt_lap>(lap_start, lap_end) );
