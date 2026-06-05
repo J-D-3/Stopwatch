@@ -19,7 +19,7 @@ The `Stopwatch` class allows you to do this with two lines of code:
 Here's a minimal executable example:
 ```cpp
 #include <iostream>
-#include "Stopwatch.h"
+#include "Stopwatch.hpp"
 
 int main(){
   //Namespace alias
@@ -42,7 +42,7 @@ Furthermore, you can get the elapsed time formatted as seconds, milliseconds, mi
 
 ```cpp
 #include <iostream>
-#include "Stopwatch.h"
+#include "Stopwatch.hpp"
 
 int main()
 {
