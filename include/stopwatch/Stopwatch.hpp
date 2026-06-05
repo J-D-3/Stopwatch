@@ -21,7 +21,7 @@ class Stopwatch{
 public:
    enum TimeFormat{ NANOSECONDS, MICROSECONDS, MILLISECONDS, SECONDS };
 
-   Stopwatch(): start_time(), laps({}) {
+   Stopwatch(){
       start();
    }
 
@@ -117,7 +117,7 @@ inline std::string show_times( const std::vector<std::uint64_t>& times ){
     for( const auto& t : times ){
         result += std::to_string(t) + ",";
     }
-    result.back() = static_cast<char>('}');
+    result.back() = '}';
     return result;
 }
 
