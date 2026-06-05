@@ -82,6 +82,36 @@ int main()
       CHECK( ms >= s );
    }
 
+   // Telescoping invariant: laps are contiguous and the first one starts at
+   // the watch's start, so in nanoseconds (no rounding) the lap times sum
+   // exactly to the reported total. This holds regardless of timing.
+   {
+      sw::Stopwatch w;
+      volatile std::uint64_t sink = 0;
+      for(int rep = 0; rep < 4; ++rep){
+         for(std::size_t i = 1; i <= 500000; i++){ sink += i; }
+         w.lap<sw::ns>();
+      }
+      const auto laps = w.elapsed_laps<sw::ns, sw::ns>();
+      std::uint64_t sum = 0;
+      for(const auto& t : laps.second){ sum += t; }
+      CHECK( laps.second.size() == 4 );
+      CHECK( sum == laps.first );
+   }
+
+   // const-correctness: the non-mutating accessors must be callable through
+   // a const reference. This is a compile-time guard as much as a runtime
+   // one - it would fail to build if elapsed()/elapsed_laps() lost const.
+   {
+      sw::Stopwatch w;
+      w.lap();
+      const sw::Stopwatch& cw = w;
+      const auto ms    = cw.elapsed<sw::ms>();
+      const auto laps  = cw.elapsed_laps<sw::ms, sw::ms>();
+      CHECK( ms >= laps.first );          // total-since-start <= elapsed-now
+      CHECK( laps.second.size() == 1 );
+   }
+
    if( failures == 0 ){
       std::cout << "All checks passed.\n";
       return 0;
