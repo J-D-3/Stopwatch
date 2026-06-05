@@ -91,6 +91,9 @@ private:
          return s_count;
       }
       }
+      // Unreachable for any valid TimeFormat; defined fallback keeps the
+      // function from returning an indeterminate value.
+      return ns_count;
     }
 };
 
