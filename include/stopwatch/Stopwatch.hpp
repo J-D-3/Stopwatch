@@ -110,6 +110,7 @@ constexpr Stopwatch::TimeFormat seconds = Stopwatch::TimeFormat::SECONDS;
 
 
 std::string show_times( const std::vector<std::uint64_t>& times ){
+    if( times.empty() ){ return "{}"; }
     std::string result("{");
     for( const auto& t : times ){
         result += std::to_string(t) + ",";
