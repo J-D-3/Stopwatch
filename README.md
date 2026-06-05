@@ -5,7 +5,13 @@ C++ implementation of a `Stopwatch` class
 This repository is home to a tiny C++ implementation of a stopwatch. It aims at providing an easy-to-use stopwatch. Basically, it's just an API to `std::chrono::high_precision_clock`. But googling for "*std chrono duration_cast*", "*std chrono time_point template*" for the 271st time -rough estimation-, finally convinced me that I need to write this code snippet. Here I'm sharing the result.
 
 ## Installation
-Download the header `Stopwatch.hpp` from the include folder of this repository, include it, and you're ready to go. No dependencies no nothing.
+Download the header `Stopwatch.hpp` from the `include/stopwatch` folder of this repository, include it, and you're ready to go. No dependencies beyond the C++ standard library (C++11 or later).
+
+If you use CMake, you can instead add the repository as a subdirectory and link the header-only target, which sets the include path and language standard for you:
+```cmake
+add_subdirectory(Stopwatch)
+target_link_libraries(your_target PRIVATE stopwatch)
+```
 
 ## Usage
 *Info:* In */test/main.cpp* you'll find a program that combines the following three examples into one `main()` function. It should be executable as soon as you adapt the include path to "Stopwatch.hpp".
@@ -113,6 +119,19 @@ int main()
 }
 ```
 
+
+## Building & testing
+The header itself needs no build. To build the bundled demo and run the test suite:
+```sh
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+`stopwatch_demo` is a runnable usage example; `stopwatch_tests` is the assertion suite, which also runs on every push via CI across GCC, Clang and MSVC.
+
+## Behaviour notes
+- Timing uses `std::chrono::steady_clock`, so measurements are monotonic and unaffected by changes to the system clock.
+- `elapsed()` and `lap()` return unsigned integer tick counts **rounded to the nearest** unit (e.g. 1500 ns &rarr; 2 &micro;s), not truncated.
 
 ## License
 Distributed under the MIT Software License (X11 license). (See accompanying file LICENSE.)
